@@ -9,8 +9,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.android.popularmovies.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+<fragment
+    android:name="com.example.android.popularmovies.MovieFragment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/movie_fragment_in_main"
+/>
 </RelativeLayout>
