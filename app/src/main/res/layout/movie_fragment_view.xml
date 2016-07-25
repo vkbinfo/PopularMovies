@@ -3,12 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridLayout
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:columnCount="2"
         android:rowCount="3"
         android:id="@+id/grid_layout"
-        ></GridLayout>
+        android:columnWidth="150dp"
+        android:stretchMode="columnWidth"
+        android:numColumns="auto_fit"></GridView>
 </LinearLayout>
