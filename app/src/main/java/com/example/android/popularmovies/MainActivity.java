@@ -15,20 +15,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_activity_menu,menu);
-       return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.popular_movies){
-            Toast.makeText(getApplicationContext(),"popular movies selected",Toast.LENGTH_LONG).show();
-        }
-        if(item.getItemId()==R.id.toprated_movies){
-            Toast.makeText(getApplicationContext(),"top rated selected",Toast.LENGTH_LONG).show();
-        }
-    return true;
-    }
 }
