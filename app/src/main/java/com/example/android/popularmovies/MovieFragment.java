@@ -39,10 +39,18 @@ public class MovieFragment extends Fragment {
     MovieDataParser dataParser;
     GridView gridView;
     ProgressBar progressBar;
+    final String APIKEY="";
+
+
+
+    //PLEASE INPUT YOUR API KEY
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        update("popularity.desc");
+        update("popularity.desc",APIKEY);
     }
 
     @Nullable
@@ -65,19 +73,19 @@ public class MovieFragment extends Fragment {
         if(item.getItemId()==R.id.popular_movies){
             progressBar.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.GONE);
-            update("popularity.desc");
+            update("popularity.desc",APIKEY);
         }
         if(item.getItemId()==R.id.toprated_movies){
             progressBar.setVisibility(View.VISIBLE);
             gridView.setVisibility(View.INVISIBLE);
-            update("vote_average.desc");
+            update("vote_average.desc",APIKEY);
         }
         return true;
     }
 
-    public void update(String para){
+    public void update(String para,String apiKey){
         FetchMovieData wetherInfo=new FetchMovieData();
-        wetherInfo.execute("https://api.themoviedb.org/3/discover/movie?api_key=61841776ff5020cff6cbc0587cb78f78&sort_by="+para);
+        wetherInfo.execute("https://api.themoviedb.org/3/discover/movie?"+apiKey+"&sort_by="+para);
     }
 
     @Override

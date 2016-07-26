@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by vikashkumarbijarnia on 24/07/16.
  */
-public class MovieModelClass implements Serializable{
+public class MovieModelClass{
     private String title;
     private Bitmap imageThumbnailUrl;
     private String overviewOfMovie;
