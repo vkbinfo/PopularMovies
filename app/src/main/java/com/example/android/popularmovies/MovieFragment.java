@@ -1,8 +1,11 @@
 package com.example.android.popularmovies;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -50,8 +53,13 @@ public class MovieFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        update("popularity.desc",APIKEY);
-    }
+        if(isNetworkAvailable()) {
+            update("popular", APIKEY);
+        }
+        else{
+            Toast.makeText(getActivity(),"Network Is Not Available",Toast.LENGTH_LONG).show();
+        }
+        }
 
     @Nullable
     @Override
@@ -71,21 +79,34 @@ public class MovieFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==R.id.popular_movies){
-            progressBar.setVisibility(View.VISIBLE);
-            gridView.setVisibility(View.GONE);
-            update("popularity.desc",APIKEY);
+            if(isNetworkAvailable()) {
+                progressBar.setVisibility(View.VISIBLE);
+                gridView.setVisibility(View.GONE);
+                update("popular", APIKEY);
+            }
+            else{
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getActivity(),"Network Is Not Available",Toast.LENGTH_LONG).show();
+            }
         }
         if(item.getItemId()==R.id.toprated_movies){
-            progressBar.setVisibility(View.VISIBLE);
-            gridView.setVisibility(View.INVISIBLE);
-            update("vote_average.desc",APIKEY);
+            if(isNetworkAvailable()) {
+                progressBar.setVisibility(View.VISIBLE);
+                gridView.setVisibility(View.INVISIBLE);
+                update("top_rated",APIKEY);
+            }
+            else{
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getActivity(),"Network Is Not Available",Toast.LENGTH_LONG).show();
+            }
+
         }
         return true;
     }
 
     public void update(String para,String apiKey){
         FetchMovieData wetherInfo=new FetchMovieData();
-        wetherInfo.execute("https://api.themoviedb.org/3/discover/movie?"+apiKey+"&sort_by="+para);
+        wetherInfo.execute("http://api.themoviedb.org/3/movie/"+para+"?api_key="+apiKey);
     }
 
     @Override
@@ -185,6 +206,12 @@ public class MovieFragment extends Fragment {
             }
         }
         return null;
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
 
